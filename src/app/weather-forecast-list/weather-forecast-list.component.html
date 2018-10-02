@@ -1,2 +1,4 @@
 <button (click)="getWeather()">Search</button>
-<app-weather-forecast [weather_forecast] = "weatherForecasts" [city_detail]="cityDetails"></app-weather-forecast>
+<button (click)="cleanresult()">Clean</button>
+<button (click)="getchart()">Show Chart</button>
+<app-weather-forecast [weather_forecast] = "weatherForecasts" [city_detail]="cityDetails" [chart] ="chart"></app-weather-forecast>

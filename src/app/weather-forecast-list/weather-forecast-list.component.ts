@@ -3,6 +3,7 @@ import { weatherBit } from '../../environments/environment';
 import { WeatherForecast} from '../models/weather-forecast';
 import { CityDetails} from '../models/city-details';
 import { HttpClient } from '@angular/common/http';
+import { Chart } from 'chart.js';
 
 @Component({
   selector: 'app-weather-forecast-list',
@@ -16,11 +17,11 @@ export class WeatherForecastListComponent implements OnInit {
   weatherBitUrl: string;
   weatherForecasts: WeatherForecast[];
   cityDetails: CityDetails;
+  chart = [];
 
   constructor(private http: HttpClient) {
     //this is for test purpose
     // this.searchText = "Raleigh";
-
     this.weatherForecasts = [];
     this.weatherBitUrl = ``;
     this.cityDetails = {
@@ -50,10 +51,62 @@ export class WeatherForecastListComponent implements OnInit {
             clouds: element.clouds,
             datetime: element.datetime
           }
-        )
+        );
       });
       console.log(this.cityDetails);
       console.log(this.weatherForecasts);
+    })
+  }
+  
+  cleanresult() {
+    this.weatherForecasts =[];
+    this.cityDetails = {
+      city_name: '',
+      country_code: '',
+      lat: '',
+      lon: '',
+      state_code:'',
+      timezone:''
+    }
+  }
+
+  getchart() {
+    this.chart = new Chart(document.getElementById('canvas'), {
+      type: 'line',
+      data: {
+        labels: this.weatherForecasts.map(weather=>{return weather.datetime}),
+        datasets: [
+          {
+            label: "Max-Temp",
+            data: this.weatherForecasts.map(weather=>{return weather.max_temp}),
+            borderColor: "#3cba9f",
+            fill: false
+          },
+          {
+            label: "Min-Temp",
+            data: this.weatherForecasts.map(weather=>{return weather.min_temp}),
+            borderColor: "#ffcc00",
+            fill:false
+          }
+        ]
+      },
+      options: {
+        title: {
+          display: true,
+          text: `${this.cityDetails.city_name} Weather chart`
+        },
+        legend: {
+          display: true
+        },
+        scales: {
+          xAxes: [{
+            display: true
+          }],
+          yAxes: [{
+            display: true
+          }],
+        }
+      }
     })
   }
 
