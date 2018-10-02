@@ -1,3 +1,2 @@
-<p>
-  weather-forecast-list works!
-</p>
+<button (click)="getWeather()">Search</button>
+<app-weather-forecast [weather_forecast] = "weatherForecasts" [city_detail]="cityDetails"></app-weather-forecast>

@@ -9,5 +9,7 @@ export class AppComponent {
   title = 'app';
   searchText: string;
 
-  constructor() {}
+  constructor() {
+    
+  }
 }

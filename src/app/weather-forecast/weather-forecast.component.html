@@ -1,0 +1,10 @@
+<div>
+    City Name: {{city_detail.city_name}}
+    Country code: {{city_detail.country_code}}
+</div>
+
+<div *ngFor ="let weather of weather_forecast">
+    <div>
+        Time is {{weather.datetime}}, max_temp is {{weather.max_temp}}, min_temp is {{weather.min_temp}}
+    </div>
+</div>
